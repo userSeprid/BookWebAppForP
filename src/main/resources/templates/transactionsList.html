@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions List</title>
+    <link href="/css/searchTable.css" rel="stylesheet" />
+</head>
+<body>
+<a href="/bookPage"><h3>Home</h3></a>
+<div class="table-container">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by transaction ID's..">
+    <table id="myTable">
+        <thead>
+        <tr class="header">
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Address</th>
+            <th>Amount</th>
+            <th>Book ID</th>
+            <th>Book price</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="transactions : ${transactions}">
+            <th data-th-text="${transactions.id}">...</th>
+            <th data-th-text="${transactions.fName}">...</th>
+            <th data-th-text="${transactions.lName}">...</th>
+            <th data-th-text="${transactions.address}">...</th>
+            <th data-th-text="${transactions.amount}">...</th>
+            <th data-th-text="${transactions.bookId}">...</th>
+            <th data-th-text="${transactions.bookPrice}">...</th>
+            <th data-th-text="${transactions.purchaseTimeStamp}">...</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, value, table, tr, th1, i;
+        input = document.getElementById("myInput");
+        value = input.value;
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) {
+            th1 = tr[i].getElementsByTagName("th")[0];
+            if (th1.innerText == value || value == "") {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+    <link href="/css/core.css" rel="stylesheet" />
+    <link href="/css/searchTable.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="table-container">
+            <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search by book ID, title, author or genre">
+            <table id="myTable">
+                <thead>
+                    <tr class="header">
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="aBook : ${bookList}">
+                        <th data-th-text="${aBook.id}"  th:onclick="'javascript:rowClicked(' + ${aBook.id} + ');'">...</th>
+                        <th data-th-text="${aBook.title}">...</th>
+                        <th data-th-text="${aBook.author}">..</th>
+                        <th data-th-text="${aBook.genre}">...</th>
+                        <th data-th-text="${aBook.price}">...</th>
+                        <th data-th-text="${aBook.description}">...</th>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Click on ID cell in a table to view specified book and/or buy it.</p>
+        </div>
+    <a href="/index"><h3>Return to index</h3></a>
+    <a href="/bookPage/transactionsList"><h3>View transactions</h3></a>
+
+        <script>
+        function rowClicked(value) {
+            //Redirect to book-details page
+            location.href = "http://localhost:8090/bookPage/" + value;
+        }
+
+        function searchFunction() {
+            // Declare variables
+            var input, value, table, tr, th1, th2, th3, th4, i, authorValue, genreValue;
+            input = document.getElementById("myInput");
+            value = input.value;
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 1; i < tr.length; i++) {
+                th1 = tr[i].getElementsByTagName("th")[0];
+                th2 = tr[i].getElementsByTagName("th")[1];
+                th3 = tr[i].getElementsByTagName("th")[2];
+                th4 = tr[i].getElementsByTagName("th")[3];
+                authorValue = th3.innerText.toLowerCase();
+                genreValue = th4.innerText.toLowerCase();
+                if (th1.innerText == value || th2.innerText == value || authorValue.includes(value.toLowerCase()) || genreValue.includes(value.toLowerCase())  || value == "") {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

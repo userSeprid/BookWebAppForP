@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+    <link href="/css/core.css" rel="stylesheet" />
+    <link href="/css/searchTable.css" rel="stylesheet" />
+</head>
+    <body>
+        <div id="table-container">
+            <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search by book ID, title, author or genre">
+            <table id="myTable">
+                <thead>
+                    <tr class="header">
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="aBook : ${booksList}">
+                        <th data-th-text="${aBook.id}"  th:onclick="'javascript:rowClicked(' + ${aBook.id} + ');'">...</th>
+                        <th data-th-text="${aBook.title}">...</th>
+                        <th data-th-text="${aBook.author}">..</th>
+                        <th data-th-text="${aBook.genre}">...</th>
+                        <th data-th-text="${aBook.price}">...</th>
+                        <th data-th-text="${aBook.description}">...</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="navigation">
+            <a href="/index"><h3>Return to index</h3></a>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+            <p>Click on ID cell in a table to edit specified book.</p>
+        </div>
+
+        <div id="book-creation-container">
+            <h2>Create new Book</h2>
+            <form action="#" th:action="@{/adminPanel}" th:object="${book}" method="post">
+                <p>Title: <input type="text" th:field="*{title}" required/></p>
+                <p>Author: <input type="text" th:field="*{author}" required/></p>
+                <p>Genre: <input type="text" th:field="*{genre}" required/></p>
+                <p>Price: <input type="number" th:field="*{price}" required/></p>
+                <p>Description: <input type="text" th:field="*{description}" required/></p>
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
+        </div>
+
+        <script>
+        function rowClicked(value) {
+            //Redirect to book-details page
+            location.href = "http://localhost:8090/adminPanel/" + value;
+        }
+
+        function searchFunction() {
+            // Declare variables
+            var input, value, table, tr, th1, th2, th3, th4, i, authorValue, genreValue;
+            input = document.getElementById("myInput");
+            value = input.value;
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 1; i < tr.length; i++) {
+                th1 = tr[i].getElementsByTagName("th")[0];
+                th2 = tr[i].getElementsByTagName("th")[1];
+                th3 = tr[i].getElementsByTagName("th")[2];
+                th4 = tr[i].getElementsByTagName("th")[3];
+                authorValue = th3.innerText.toLowerCase();
+                genreValue = th4.innerText.toLowerCase();
+                if (th1.innerText == value || th2.innerText == value || authorValue.includes(value.toLowerCase()) || genreValue.includes(value.toLowerCase())  || value == "") {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+    </body>
+</html>

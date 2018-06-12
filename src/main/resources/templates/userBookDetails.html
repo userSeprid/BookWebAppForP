@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book details</title>
+    <link href="/css/core.css" rel="stylesheet" />
+    <link href="/css/searchTable.css" rel="stylesheet" />
+</head>
+<body>
+    <a href="/bookPage"><h3>Home</h3></a>
+	<div id="book-details-container">
+	    <h2>Book details</h2>
+	    <table id="myTable">
+	        <thead>
+	        <tr class="header">
+	            <th>ID</th>
+	            <th>Title</th>
+	            <th>Author</th>
+	            <th>Genre</th>
+	            <th>Price</th>
+	            <th>Description</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        	<tr>
+	                <th data-th-text="${aBook.id}">...</th>
+	                <th data-th-text="${aBook.title}">...</th>
+	                <th data-th-text="${aBook.author}">..</th>
+	                <th data-th-text="${aBook.genre}">...</th>
+	                <th data-th-text="${aBook.price}">...</th>
+	                <th data-th-text="${aBook.description}">...</th>
+	        	</tr>
+	        </tbody>
+	    </table>
+	</div>
+
+	<div id="book-buy-container">
+        <h2>Buy a book</h2>
+        <form action="#" th:action="@{/bookPage/bookBuy}" th:object="${userDetails}" method="post">
+            <p>First Name: <input type="text" th:field="*{FName}" required/></p>
+            <p>Last Name: <input type="text" th:field="*{LName}" required/></p>
+            <p>Adress: <input type="text" th:field="*{address}" required/></p>
+            <p>Amount: <input type="number" th:field="*{amount}" required/></p>
+			<p hidden>BookId: <input type="number" th:field="${aBook.id}" required/></p>
+			<p hidden>Price: <input type="number" th:field="${aBook.price}" required/></p>
+            <p>
+				<input type="submit" value="Submit" th:onclick="'javascript:purchaseMessage('
+				+ ${aBook.title}+ ',' + ${aBook.price}+ ',' + ${userDetails.FName}+ ',' +
+				${userDetails.LName}+ ',' + ${userDetails.address}+ ',' + ${userDetails.amount} +
+				');'"/> 
+				<input type="reset" value="Reset" />
+			</p>
+        </form>
+    </div>
+	
+	<script>
+		function purchaseMessage(title, price, fName, lName, adress, amount) {
+			var msg;
+			msg = "Dear customer" + fName + " " + lName + ". Your have make a purchase: \'" 
+			+ title + "\' with price = " + price + ". Number of copies = " + amount +
+			". Your purchase will be delivered to the " + adress + "Please prepare " +
+			price * amount + "$";
+			alert(msg);
+		}
+	</script>
+</body>
+</html>
