@@ -27,7 +27,7 @@ Fifth page - adminPanel:
 - User can filer the list by using form in head of page and he can view book details by cliking on its ID. 
 - Book creation form.
 
-Sixth - adminBookDetails: 
+Sixth page - adminBookDetails: 
 - Table with data about concrete book.
 - Book edit form.
 
