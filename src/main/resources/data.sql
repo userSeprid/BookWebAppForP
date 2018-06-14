@@ -10,4 +10,4 @@ INSERT INTO book (id, title, author, genre, description, price) VALUES
 
 
 INSERT INTO transactions (id, f_Name, l_Name, address, book_Id, amount, book_Price, purchase_Time_Stamp) VALUES
-(1, 'Mike', 'Mikes', 'NY', 5, 2, 49, current_timestamp );
+(6, 'Mike', 'Mikes', 'NY', 10, 2, 49, current_timestamp );
