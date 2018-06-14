@@ -2,7 +2,6 @@
     /* Add a search icon to input */
     /* Position the search icon */
     /* Do not repeat the icon image */
-    background: url('searchicon.png') no-repeat 10px 12px;
     width: 100%; /* Full-width */
     font-size: 16px; /* Increase font-size */
     padding: 12px 20px 12px 40px; /* Add some padding */
