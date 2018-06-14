@@ -34,6 +34,7 @@ Sixth - adminBookDetails:
 Technology, tools, libs used:
 - Maven
 - Spring-boot
+- Spring Security
 - H2 DB
 - Thymeleaf
 
