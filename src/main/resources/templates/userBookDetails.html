@@ -34,34 +34,30 @@
 	    </table>
 	</div>
 
-	<div id="book-buy-container">
+	<div id="book-buy-container" th:onmousemove="'javascript:setValues(' + ${aBook.id} + ',' + ${aBook.price} +');'">
         <h2>Buy a book</h2>
         <form action="#" th:action="@{/bookPage/bookBuy}" th:object="${userDetails}" method="post">
             <p>First Name: <input type="text" th:field="*{FName}" required/></p>
             <p>Last Name: <input type="text" th:field="*{LName}" required/></p>
             <p>Adress: <input type="text" th:field="*{address}" required/></p>
             <p>Amount: <input type="number" th:field="*{amount}" required/></p>
-			<p hidden>BookId: <input type="number" th:field="${aBook.id}" required/></p>
-			<p hidden>Price: <input type="number" th:field="${aBook.price}" required/></p>
+			<p hidden>BookId: <input id="bID" type="number" th:field="*{bookId}" required/></p>
+			<p hidden>Price: <input id="bPR" type="number" th:field="*{bookPrice}" required /></p>
             <p>
 				<input type="submit" value="Submit" th:onclick="'javascript:purchaseMessage('
 				+ ${aBook.title}+ ',' + ${aBook.price}+ ',' + ${userDetails.FName}+ ',' +
 				${userDetails.LName}+ ',' + ${userDetails.address}+ ',' + ${userDetails.amount} +
-				');'"/> 
+				');'"/>
 				<input type="reset" value="Reset" />
 			</p>
         </form>
     </div>
 	
 	<script>
-		function purchaseMessage(title, price, fName, lName, adress, amount) {
-			var msg;
-			msg = "Dear customer" + fName + " " + lName + ". Your have make a purchase: \'" 
-			+ title + "\' with price = " + price + ". Number of copies = " + amount +
-			". Your purchase will be delivered to the " + adress + "Please prepare " +
-			price * amount + "$";
-			alert(msg);
-		}
+		function setValues(value1, value2) {
+            document.getElementById("bID").setAttribute("value", value1);
+            document.getElementById("bPR").setAttribute("value", value2);
+        }
 	</script>
 </body>
 </html>
