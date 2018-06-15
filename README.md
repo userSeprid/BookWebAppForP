@@ -48,3 +48,5 @@ To start do the following:
 4. Type 'mvn spring-boot:run' to start the application.
 5. Open in your browser 'http://localhost:8090/index'
 ! Maven must be installed and configured !
+
+- Administrator login : 'user', password : 'password'.
